@@ -1,0 +1,35 @@
+[
+  {
+    "model": "school_supplies.item",
+    "pk": 1,
+    "fields": {
+      "inv_manage_id": 1,
+      "name": "Pen",
+      "description": "Blue ink pen",
+      "price": 1.50,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "school_supplies.item",
+    "pk": 2,
+    "fields": {
+      "inv_manage_id": 1,
+      "name": "Notebook",
+      "description": "A4 size notebook",
+      "price": 3.00,
+      "quantity": 50
+    }
+  },
+  {
+    "model": "school_supplies.item",
+    "pk": 3,
+    "fields": {
+      "inv_manage_id": 1,
+      "name": "Eraser",
+      "description": "Soft eraser",
+      "price": 0.50,
+      "quantity": 200
+    }
+  }
+]

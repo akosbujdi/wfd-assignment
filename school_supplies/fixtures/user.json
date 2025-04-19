@@ -1,0 +1,91 @@
+[
+  {
+    "model": "school_supplies.customuser",
+    "pk": 1,
+    "fields": {
+      "email": "admin@admin.com",
+      "name": "Admin User",
+      "password": "password",
+      "is_active": true,
+      "is_staff": true
+    }
+  },
+  {
+    "model": "school_supplies.customuser",
+    "pk": 2,
+    "fields": {
+      "email": "user1@user1.com",
+      "name": "User One",
+      "password": "password",
+      "is_active": true,
+      "is_staff": false
+    }
+  },
+  {
+    "model": "school_supplies.customuser",
+    "pk": 3,
+    "fields": {
+      "email": "teacher@school.com",
+      "name": "Teacher User",
+      "password": "password",
+      "is_active": true,
+      "is_staff": false
+    }
+  },
+  {
+    "model": "school_supplies.customuser",
+    "pk": 4,
+    "fields": {
+      "email": "student@school.com",
+      "name": "Student User",
+      "password": "password",
+      "is_active": true,
+      "is_staff": false
+    }
+  },
+  {
+    "model": "school_supplies.inventorymanager",
+    "pk": 1,
+    "fields": {
+      "user": 3,
+      "discount_rate": 0.15
+    }
+  },
+  {
+    "model": "school_supplies.teacher",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "discount_rate": 0.15
+    }
+  },
+  {
+    "model": "school_supplies.student",
+    "pk": 4,
+    "fields": {
+      "user": 4
+    }
+  },
+  {
+    "model": "school_supplies.item",
+    "pk": 1,
+    "fields": {
+      "inv_manage_id": 1,
+      "name": "Pen",
+      "description": "Blue ink pen",
+      "price": 1.50,
+      "quantity": 100
+    }
+  },
+  {
+    "model": "school_supplies.item",
+    "pk": 2,
+    "fields": {
+      "inv_manage_id": 1,
+      "name": "Notebook",
+      "description": "Spiral notebook",
+      "price": 2.99,
+      "quantity": 50
+    }
+  }
+]
