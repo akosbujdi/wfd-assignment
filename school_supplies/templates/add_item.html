@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="bg-light p-4 rounded shadow-sm">
+                    <h2 class="mb-4 text-center">Add New Item</h2>
+                    <form method="POST" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+
+                        <div class="form-group mb-3">
+                            <label for="id_name" class="form-label">Item Name</label>
+                            <input type="text" name="name" class="form-control" id="id_name"
+                                   value="{{ form.name.value|default:'' }}">
+                            {% for error in form.name.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_description" class="form-label">Description</label>
+                            <textarea name="description" class="form-control" id="id_description"
+                                      rows="3">{{ form.description.value|default:'' }}</textarea>
+                            {% for error in form.description.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_price" class="form-label">Price</label>
+                            <input type="text" name="price" class="form-control" id="id_price"
+                                   value="{{ form.price.value|default:'' }}">
+                            {% for error in form.price.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="id_quantity" class="form-label">Quantity</label>
+                            <input type="number" name="quantity" class="form-control" id="id_quantity"
+                                   value="{{ form.quantity.value|default:'' }}">
+                            {% for error in form.quantity.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="id_image" class="form-label">Image</label>
+                            <input type="file" name="image" class="form-control" id="id_image">
+                            {% for error in form.image.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Add Item</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+

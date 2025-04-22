@@ -1,11 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser, Student, Teacher
+from .models import Item
 
 ROLE_CHOICES = [
     ('student', 'Student'),
     ('teacher', 'Teacher'),
 ]
+
 
 class CustomUserCreationForm(UserCreationForm):
     role = forms.ChoiceField(choices=ROLE_CHOICES, widget=forms.RadioSelect)
@@ -23,3 +25,9 @@ class CustomUserCreationForm(UserCreationForm):
         else:
             Teacher.objects.create(user=user)
         return user
+
+
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        exclude = ['inv_manage_id','created_at']

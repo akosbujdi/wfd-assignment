@@ -25,6 +25,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Shop</a>
                 </li>
+                {% if user.is_authenticated and user.is_inventory_manager %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'add_item' %}">Add Item</a>
+                    </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
@@ -83,10 +91,14 @@
             <div class="col-md-4 mb-4">
                 <h5>Follow Us</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-facebook-f"></i> Facebook</a></li>
-                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-twitter"></i> Twitter</a></li>
-                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-facebook-f"></i>
+                        Facebook</a></li>
+                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-twitter"></i> Twitter</a>
+                    </li>
+                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-instagram"></i>
+                        Instagram</a></li>
+                    <li><a href="#" class="text-white text-decoration-none"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -4,10 +4,13 @@ from django.contrib.auth import authenticate, login, logout
 from school_supplies.forms import CustomUserCreationForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from .forms import ItemForm
+from .models import Item
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    latest_items = Item.objects.order_by('-id')[:3]
+    return render(request, 'home.html', {'latest_items': latest_items})
 
 
 def login_view(request):
@@ -30,6 +33,7 @@ def login_view(request):
 
     return render(request, 'login.html', {'form': form})
 
+
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -40,6 +44,24 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
+
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+def add_item_view(request):
+    if not request.user.is_authenticated or not hasattr(request.user, 'inventorymanager'):
+        return redirect('home')
+
+    if request.method == 'POST':
+        form = ItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.inv_manage_id = request.user.inventorymanager
+            item.save()
+            return redirect('home')
+    else:
+        form = ItemForm()
+
+    return render(request, 'add_item.html', {'form': form})
