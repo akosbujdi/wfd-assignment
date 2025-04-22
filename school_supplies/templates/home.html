@@ -1,38 +1,73 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="text-center">Welcome to School Supplies</h1>
-    <p class="text-center">Find all your school essentials in one place.</p>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Item">
-                <div class="card-body">
-                    <h5 class="card-title">Item 1</h5>
-                    <p class="card-text">Description of item 1.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
+    <!-- Welcome Section -->
+    <header class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h1>Welcome to School Supplies!</h1>
+            <p>Your one-stop shop for all your school and office needs</p>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="bg-light py-3 my-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>About Us</h2>
+                    <hr class="border-primary mb-4 w-25">
+                    <p class="lead">
+                        At School Supplies, we aim to provide a wide variety of high‑quality school and office products
+                        at affordable prices. Whether you’re a student, teacher, or school administrator, we’ve got
+                        everything you need to stay organized and prepared.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    {% load static %}
+                    <img src="{% static 'school_supplies/bg.jpg' %}" alt="School Supplies"
+                         class="img-fluid rounded shadow-sm">
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Item">
-                <div class="card-body">
-                    <h5 class="card-title">Item 2</h5>
-                    <p class="card-text">Description of item 2.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="shop" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Featured Products</h2>
+            <div class="row">
+                <!-- Placeholder for products, replace with dynamic content -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Item 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Product 1</h5>
+                            <p class="card-text">A great product for your needs!</p>
+                            <a href="#" class="btn btn-primary">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Item 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Product 2</h5>
+                            <p class="card-text">Perfect for students and teachers alike.</p>
+                            <a href="#" class="btn btn-primary">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Item 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Product 3</h5>
+                            <p class="card-text">Essential school item for every student.</p>
+                            <a href="#" class="btn btn-primary">Shop Now</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Item">
-                <div class="card-body">
-                    <h5 class="card-title">Item 3</h5>
-                    <p class="card-text">Description of item 3.</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 {% endblock %}

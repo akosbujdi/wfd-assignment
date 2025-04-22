@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <!-- Light gray wrapper with padding -->
+                <div class="bg-light p-4 rounded shadow-sm">
+                    <h2 class="mb-4 text-center">Sign In</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-danger">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">Email</label>
+                            <input type="email" name="username" class="form-control" required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p class="mb-2">Don't have an account?</p>
+                        <a href="{% url 'register' %}" class="btn btn-outline-secondary w-100">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
