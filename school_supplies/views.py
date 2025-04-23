@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import ItemForm
 from .models import Item
 
+
 # Create your views here.
 def home(request):
     latest_items = Item.objects.order_by('-id')[:3]
@@ -60,8 +61,13 @@ def add_item_view(request):
             item = form.save(commit=False)
             item.inv_manage_id = request.user.inventorymanager
             item.save()
-            return redirect('home')
+            return redirect('shop')
     else:
         form = ItemForm()
 
     return render(request, 'add_item.html', {'form': form})
+
+
+def shop_view(request):
+    items = Item.objects.all().order_by('-created_at')  # or just .all()
+    return render(request, 'shop.html', {'items': items})

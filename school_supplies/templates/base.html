@@ -23,7 +23,7 @@
                     <a class="nav-link active" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Shop</a>
+                    <a class="nav-link" href="{% url 'shop' %}">Shop</a>
                 </li>
                 {% if user.is_authenticated and user.is_inventory_manager %}
                     <li class="nav-item">
@@ -81,8 +81,8 @@
             <div class="col-md-4 mb-4">
                 <h5>Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">Home</a></li>
-                    <li><a href="#" class="text-white">Shop</a></li>
+                    <li><a href="{% url 'home' %}" class="text-white">Home</a></li>
+                    <li><a href="{% url 'shop' %}" class="text-white">Shop</a></li>
                     <li><a href="#" class="text-white">Account</a></li>
                 </ul>
             </div>
