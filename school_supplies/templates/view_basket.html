@@ -27,18 +27,41 @@
                                     <input type="number" name="quantity_{{ basket_item.id }}"
                                            value="{{ basket_item.quantity }}" min="0" class="form-control">
                                 </td>
-                                <td class="fw-bold">€{{ basket_item.item.price|multiply:basket_item.quantity|floatformat:2 }}</td>
+                                <td class="fw-bold">
+                                    €{{ basket_item.item.price|multiply:basket_item.quantity|floatformat:2 }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
 
                         <tfoot>
-                        <tr>
+                        {% if discount_applied %}
+                            <tr class="table-success">
+                                <td colspan="3" class="text-end fw-bold">Subtotal:</td>
+                                <td class="fw-bold">€{{ subtotal }}</td>
+                            </tr>
+                            <tr class="table-success">
+                                <td colspan="3" class="text-end fw-bold">Discount ({{ discount_rate }}%):</td>
+                                <td class="fw-bold">-€{{ discount_amount }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr class="{% if discount_applied %}table-danger{% else %}table-light{% endif %}">
                             <td colspan="3" class="text-end fw-bold">Total:</td>
                             <td class="fw-bold">€{{ total }}</td>
                         </tr>
                         </tfoot>
                     </table>
+
+                    {% if discount_applied %}
+                        <div class="alert alert-success text-center">
+                            <i class="bi bi-check-circle-fill"></i> More than 10 items in your
+                            basket! {{ discount_rate }}% discount applied!
+                        </div>
+                    {% elif hasattr.user.teacher and total_items >= 10 %}
+                        <div class="alert alert-info text-center">
+                            <i class="bi bi-info-circle-fill"></i> Teachers get {{ user.teacher.discount_rate }}%
+                            discount on 10+ items!
+                        </div>
+                    {% endif %}
 
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <button type="submit" class="btn btn-outline-primary">Update Basket</button>

@@ -47,6 +47,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def is_inventory_manager(self):
         return self.groups.filter(name='Inventory Manager').exists()
 
+    def is_teacher(self):
+        return hasattr(self, 'teacher')
+
     def __str__(self):
         return self.email
 

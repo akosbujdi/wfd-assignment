@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'school_supplies',
+    'crispy_forms',
+    'crispy_bootstrap5'
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 AUTH_USER_MODEL = 'school_supplies.CustomUser'
 LOGIN_URL = '/login/'
 

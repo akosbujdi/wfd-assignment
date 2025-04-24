@@ -27,7 +27,7 @@
                 </li>
                 {% if user.is_authenticated and user.is_inventory_manager %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inventory</a>
+                        <a class="nav-link" href="{% url 'inventory_management' %}">Inventory</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'add_item' %}">Add Item</a>
@@ -46,11 +46,12 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-2"></i>
                             Account
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end me-1" aria-labelledby="accountDropdown">
                             <li><a class="dropdown-item" href="{% url 'view_orders' %}">View Orders</a></li>
-                            <li><a class="dropdown-item" href="#">Edit Account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'edit_account' %}">Edit Account</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

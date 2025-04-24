@@ -17,7 +17,7 @@
                         <th>Item</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Total</th>
+                        <th>Subtotal</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,18 +25,38 @@
                         <tr>
                             <td>{{ basket_item.item.name }}</td>
                             <td>€{{ basket_item.item.price|floatformat:2 }}</td>
-                            <td>{{ basket_item.quantity }}</td>
-                            <td>€{{ basket_item.item.price|multiply:basket_item.quantity|floatformat:2 }}</td>
+                            <td style="width: 120px;">{{ basket_item.quantity }}</td>
+                            <td class="fw-bold">€{{ basket_item.item.price|multiply:basket_item.quantity|floatformat:2 }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
-                    <tfoot class="table-light">
-                    <tr>
-                        <td colspan="3" class="text-end fw-bold">Total</td>
-                        <td>€{{ total_price|floatformat:2 }}</td>
-                    </tr>
+                    <tfoot>
+                        {% if discount_applied %}
+                        <tr class="table-success">
+                            <td colspan="3" class="text-end fw-bold">Subtotal:</td>
+                            <td class="fw-bold">€{{ subtotal|floatformat:2 }}</td>
+                        </tr>
+                        <tr class="table-success">
+                            <td colspan="3" class="text-end fw-bold">Discount ({{ discount_rate }}%):</td>
+                            <td class="fw-bold">-€{{ discount_amount|floatformat:2 }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr class="{% if discount_applied %}table-danger{% else %}table-light{% endif %}">
+                            <td colspan="3" class="text-end fw-bold">Total</td>
+                            <td class="fw-bold">€{{ total_price|floatformat:2 }}</td>
+                        </tr>
                     </tfoot>
                 </table>
+
+                {% if discount_applied %}
+                <div class="alert alert-success text-center mb-4">
+                    <i class="bi bi-check-circle-fill"></i> Teacher discount applied! Saved €{{ discount_amount|floatformat:2 }}
+                </div>
+                {% elif hasattr.user.teacher and total_items >= 10 %}
+                <div class="alert alert-info text-center mb-4">
+                    <i class="bi bi-info-circle-fill"></i> Teachers get {{ user.teacher.discount_rate }}% discount on 10+ items!
+                </div>
+                {% endif %}
 
                 <!-- Address Section -->
                 <h4 class="mt-4 mb-3">Delivery Address</h4>
@@ -72,4 +92,3 @@
         </div>
     </div>
 {% endblock %}
-
