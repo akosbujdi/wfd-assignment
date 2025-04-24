@@ -8,7 +8,7 @@ from .forms import ItemForm
 from .models import Basket, BasketItem, Order, OrderItem, ShippingInfo, Item
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-
+from django.utils.html import escape, mark_safe
 
 # Create your views here.
 def home(request):
@@ -82,6 +82,12 @@ def add_to_basket(request):
         quantity = int(request.POST.get('quantity', 1))
 
         item = get_object_or_404(Item, id=item_id)
+        item_name = escape(item.name)
+
+        if quantity > item.quantity:
+            messages.error(request, mark_safe(f"Only {item.quantity} of '{item_name}' available in stock."))
+            return redirect('shop')
+
         basket, created = Basket.objects.get_or_create(user=request.user)
 
         basket_item, created = BasketItem.objects.get_or_create(
@@ -91,10 +97,16 @@ def add_to_basket(request):
         )
 
         if not created:
+            if basket_item.quantity + quantity > item.quantity:
+                messages.error(request,
+                               mark_safe(f"Only {item.quantity - basket_item.quantity} more of '{item_name}' can be added."))
+                return redirect('shop')
             basket_item.quantity += quantity
             basket_item.save()
 
+        messages.success(request, mark_safe(f"'{item_name}' added to your basket!"))
         return redirect('shop')
+    return redirect('shop')
 
 
 @login_required
@@ -132,7 +144,6 @@ def view_basket(request):
         'items': basket_items,
         'total': total,
     })
-
 
 
 @login_required
