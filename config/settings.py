@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import pymysql
+import os
 
 pymysql.install_as_MySQLdb()
 
@@ -93,11 +94,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'school_supplies',
-        'USER': 'root',
-        'PASSWORD': 'pass',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('MYSQL_DATABASE','railway'),
+        'USER': os.getenv('MYSQL_USER','root'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD','password'),
+        'HOST': os.getenv('MYSQL_HOST','localhost'),
+        'PORT': os.getenv('MYSQL_PORT','3306'),
     }
 }
 
