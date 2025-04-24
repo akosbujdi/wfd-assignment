@@ -36,6 +36,13 @@
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
+                    {% if basket_count > 0 %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'view_basket' %}">
+                                <i class="fas fa-shopping-basket me-1"></i> ({{ basket_count }}) View Basket
+                            </a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <i class="fas fa-user me-1"></i> Account
