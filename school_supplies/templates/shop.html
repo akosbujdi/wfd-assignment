@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container py-5">
-    <div class="bg-light p-4 rounded shadow-sm border">
+    <div class="bg-light p-4 rounded shadow-sm">
         <h2 class="text-center mb-4">Shop All Items</h2>
         <div class="row">
             {% for item in items %}
@@ -22,7 +22,7 @@
                                     <label for="quantity-{{ item.id }}" class="form-label">Quantity</label>
                                     <input type="number" id="quantity-{{ item.id }}" class="form-control" name="quantity" value="1" min="1">
                                 </div>
-                                <button type="submit" class="btn btn-outline-primary mt-auto w-100">Add to Basket</button>
+                                <button type="submit" class="btn btn-primary mt-auto w-100">Add to Basket</button>
                             </div>
                         </div>
                     </form>

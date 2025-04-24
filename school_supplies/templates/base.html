@@ -43,15 +43,19 @@
                             </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fas fa-user me-1"></i> Account
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Account
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">
-                            <i class="fas fa-sign-out-alt me-1"></i> Log Out
-                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end me-1" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="{% url 'view_orders' %}">View Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Edit Account</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
                     </li>
                 {% else %}
                     <li class="nav-item">

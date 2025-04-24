@@ -5,8 +5,9 @@ from school_supplies.forms import CustomUserCreationForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import ItemForm
-from .models import Item, Basket, BasketItem
+from .models import Basket, BasketItem, Order, OrderItem, ShippingInfo, Item
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
 
 # Create your views here.
@@ -97,6 +98,11 @@ def add_to_basket(request):
 
 
 @login_required
+def order_confirmation(request):
+    return render(request, 'order_confirmation.html')
+
+
+@login_required
 def view_basket(request):
     basket, created = Basket.objects.get_or_create(user=request.user)
     basket_items = BasketItem.objects.filter(basket=basket)
@@ -120,10 +126,52 @@ def view_basket(request):
 
         return redirect('view_basket')
 
-    items = [(item, round(item.item.price * item.quantity, 2)) for item in basket_items]
-    total = round(sum(sub for _, sub in items), 2)
+    total = round(sum(item.item.price * item.quantity for item in basket_items), 2)
 
     return render(request, 'view_basket.html', {
-        'items': items,
+        'items': basket_items,
         'total': total,
     })
+
+
+
+@login_required
+@transaction.atomic
+def checkout(request):
+    basket = Basket.objects.filter(user=request.user).first()
+    items = BasketItem.objects.filter(basket=basket)
+
+    if not basket or not items.exists():
+        return redirect('shop')
+
+    total_price = sum(item.item.price * item.quantity for item in items)
+
+    if request.method == 'POST':
+        address = request.POST.get('address')
+        eircode = request.POST.get('eircode')
+
+        order = Order.objects.create(user=request.user, total_price=total_price)
+
+        ShippingInfo.objects.create(order=order, address=address, eircode=eircode)
+
+        for b_item in items:
+            OrderItem.objects.create(
+                order=order,
+                item=b_item.item,
+                quantity=b_item.quantity,
+                price_at_time=b_item.item.price
+            )
+            b_item.item.quantity -= b_item.quantity
+            b_item.item.save()
+
+        basket.delete()
+
+        return redirect('order_confirmation')
+
+    return render(request, 'checkout.html', {'items': items, 'total_price': total_price})
+
+
+@login_required
+def view_orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-order_date')
+    return render(request, 'view_orders.html', {'orders': orders})
